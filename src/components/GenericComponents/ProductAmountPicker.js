@@ -30,22 +30,12 @@ const decreaseAmount = () => {
 
 return (
     <View style={{flexDirection:'row', alignItems: "center"}}>
-        <TouchableOpacity onPress={decreaseAmount}>
-                <Icon
-                  name="chevron-left"
-                  icon={{ name: 'rss', type: 'font-awesome' }}
-                  style={styles.button}
-                  size={25}
-                />
+        <TouchableOpacity style = {styles.touch} onPress={decreaseAmount}>
+        <Text style = {styles.decreaseText}> − </Text>
               </TouchableOpacity>
-        <Text style = {styles.amoutUnit}>{`${amount}Kg`}</Text>
-        <TouchableOpacity onPress={increaseAmount}>
-                <Icon
-                  name="chevron-right"
-                  icon={{ name: 'rss', type: 'font-awesome' }}
-                  style={styles.button}
-                  size={25}
-                />
+        <Text style = {styles.amoutUnit}>{`${amount} Kg`}</Text>
+        <TouchableOpacity style = {styles.touch}  onPress={increaseAmount}>
+                <Text style ={styles.increaseText}> + </Text>
               </TouchableOpacity>    
               </View>
 )
@@ -57,7 +47,20 @@ export default ProductAmountPicker
 const styles = StyleSheet.create({
     amoutUnit: {
        fontSize: 15,
-       marginLeft:15,
-       marginRight:15
-      },
+       marginLeft:18,
+       marginRight:10,
+       width:45
+      },increaseText: {
+        backgroundColor: '#0166BF',
+        color: 'white',
+        fontSize: 20
+      },decreaseText: {
+        backgroundColor: '#0166BF',
+        color: 'white',
+        fontSize: 20
+      }, touch:{
+        borderRadius: 100,
+        backgroundColor: '#0166BF',
+        padding:5
+      }
 })
