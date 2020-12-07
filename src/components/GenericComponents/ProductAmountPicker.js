@@ -1,43 +1,57 @@
 import React, {useState} from 'react'
-import { View, Text, StyleSheet, Button,TouchableOpacity} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context';
-import index from '../ClientComponent';
-import Icon from 'react-native-vector-icons/FontAwesome'; // 4.4.2
-
-let amount = 0;
+import { View, Text, StyleSheet} from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons';
+import {useDispatch, useSelector} from 'react-redux';
+import {setProductAmount} from '../../store/actions/Car'
 
 
-const ProductAmountPicker = () => {
+const ProductAmountPicker = ({product}) => {
 
-    const [amount, setAmount] = useState(0);
-
-const increaseAmount = () => {
+    console.log(product);
 
 
-    if(amount<10){
-        setAmount(amount + 0.5);
+    const totalAmount = useSelector((state) => state.car.amount);
+
+    const dispatch = useDispatch();
+
+    const [amount, setAmount] = useState(product.amount);
+    const halfKG = 0.5;
+
+    const changeAmount = (isIncreasing, productP) => {
+
+      console.log(isIncreasing);
+      console.log(productP.amount);
+      console.log(amount);
+
+      
+       if(isIncreasing && amount<10){
+        productP.amount = productP.amount + 0.5;
+         //setAmount(amount+0.5);
+         let total = 0;
+         if(productP.amount==0){
+           total = productP.price*halfKG + totalAmount;
+         }else{
+          total = productP.price*(productP.amount+halfKG);
+         }
+         dispatch(setProductAmount(total))
+       }else if(productP.amount>0  && !isIncreasing){
+       // console.log(amount);
+        productP.amount = productP.amount - 0.5;
+     //   setAmount(amount-0.5);
+        dispatch(setProductAmount(productP.price*(productP.amount==0?halfKG:(productP.amount-halfKG))))
+       }
+
+        
     }
 
-}
-
-const decreaseAmount = () => {
-
-    if(amount>0){
-        setAmount(amount - 0.5);
-    }
-
-}
 
 return (
-    <View style={{flexDirection:'row', alignItems: "center"}}>
-        <TouchableOpacity style = {styles.touch} onPress={decreaseAmount}>
-        <Text style = {styles.decreaseText}> − </Text>
-              </TouchableOpacity>
-        <Text style = {styles.amoutUnit}>{`${amount} Kg`}</Text>
-        <TouchableOpacity style = {styles.touch}  onPress={increaseAmount}>
-                <Text style ={styles.increaseText}> + </Text>
-              </TouchableOpacity>    
-              </View>
+    <View style={{flexDirection:'row', justifyContent: "center", alignItems: "center", alignContent: "center", marginTop:10}}>
+     <Icon onPress = { ()=>{changeAmount(false, product)}} name="remove-circle-outline" color={"black"} size={36} />   
+      <Text style ={styles.text}>{`${product.amount} Kg`}</Text>
+      <Icon onPress = { ()=>{changeAmount(true, product)}} name="add-circle-outline" color={"black"} size={36} />   
+    
+    </View>
 )
 
 }
@@ -45,22 +59,20 @@ return (
 export default ProductAmountPicker
 
 const styles = StyleSheet.create({
-    amoutUnit: {
-       fontSize: 15,
-       marginLeft:18,
-       marginRight:10,
-       width:45
-      },increaseText: {
-        backgroundColor: '#0166BF',
-        color: 'white',
-        fontSize: 20
-      },decreaseText: {
-        backgroundColor: '#0166BF',
-        color: 'white',
-        fontSize: 20
-      }, touch:{
-        borderRadius: 100,
-        backgroundColor: '#0166BF',
-        padding:5
+    textInput:{
+        height: 40, 
+         width : 100, 
+         borderWidth: 1 , 
+         padding: 5,
+         textAlign: "right",
+         fontSize : 17
+      },
+      text:{
+        marginLeft:10,
+        marginRight:10,
+        fontSize: 15
+      },decimal:{
+        fontSize: 17,
+        marginLeft: 3
       }
 })

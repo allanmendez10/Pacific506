@@ -2,6 +2,10 @@
 #
 .DS_Store
 
+# VAR ENV
+#
+.env
+
 # Xcode
 #
 build/
@@ -26,7 +30,6 @@ DerivedData
 build/
 .idea
 .gradle
-local.properties
 *.iml
 
 # node.js

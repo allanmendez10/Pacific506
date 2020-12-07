@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/native": "^10.0.27",
+    "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.10.2",
     "@react-navigation/drawer": "^5.10.0",
@@ -22,6 +23,8 @@
     "emotion-theming": "^10.0.27",
     "react": "16.13.1",
     "react-native": "0.63.3",
+    "react-native-dotenv": "^2.4.2",
+    "react-native-elements": "^3.0.0-alpha.1",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-paper": "^4.2.0",
     "react-native-reanimated": "^1.13.1",

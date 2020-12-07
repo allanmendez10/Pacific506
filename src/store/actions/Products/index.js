@@ -6,6 +6,7 @@ import {
 } from '../actionType';
 
 import axios from 'axios';
+import {API_URL} from "@env";
 
 export const setProductsRedux = (payload) => ({
   type: SET_PRODUCTS,
@@ -29,17 +30,20 @@ export const setError = (payload) => ({
 
 export const getProducts = () => async (dispatch) => {
   try {
+
+    console.log(API_URL);
+
     const response = await axios.get(
-      'http://192.168.2.1:3000/api/v1/product/getProducts',
+      `${API_URL}/product/getProducts`,
     );
 
-   //console.log(response.data.data);
+    //console.log(response.data.data);
 
     dispatch(setProductsRedux(response.data.data));
     dispatch(setLoadedRedux(true));
   } catch (e) {
     dispatch(setError(e));
-    console.warn(e);
+    //console.warn(e);
   }
 };
 

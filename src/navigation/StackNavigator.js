@@ -1,9 +1,10 @@
 import React from 'react';
-import {SafeAreaView, Text, StyleSheet, Button, View} from 'react-native';
+import {Text, StyleSheet, Button, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import MainContainer from '../components/MainContainer';
-import User from '../components/ClientComponent';
-import Bill from '../components/BillComponent';
+import OrderDetail from '../components/OrderDetailComponent';
+import Login from '../components/Login';
+import SignIn from '../components/SignIn';
+
 import HomeTabs from '../navigation/BottomTabNavigator'
 //import PostDetails from '../components/ClientComponent';
 import {useNavigation} from '@react-navigation/native';
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
 const Header = () => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={styles.header}>
+    <View style={styles.header}>
      { /**/<Button
         style={styles.button}
         onPress={() => navigation.goBack()}
@@ -44,7 +45,7 @@ const Header = () => {
      /> }
       <Text style={styles.text}>Pacific 506</Text>
       <View style={styles.button} />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -55,7 +56,6 @@ export default function PostNavigator() {
       screenOptions={{
         headerStyle: {
           backgroundColor: '#2E99F7',
-          height : 110
         },
         headerTintColor: '#fff',
         headerTitleStyle: {
@@ -64,7 +64,10 @@ export default function PostNavigator() {
         },
       }}>
       <Stack.Screen name="MainContainer" component={HomeTabs} options={{ title: 'Pacific 506'}} />
-      <Stack.Screen name="BillContainer" component={Bill} options={{ title: 'Detalle del pedido'}}/> 
+      <Stack.Screen name="OrderDetailContainer" component={OrderDetail} options={{ title: 'Detalle del pedido'}}/> 
+      <Stack.Screen name="LoginContainer" component={Login} options={{headerShown: false}}/> 
+      <Stack.Screen name="SignIn" component={SignIn} options={{title:"Registrar usuario", headerBackTitle:"Volver"}} /> 
+
     </Stack.Navigator>
   );
 }
